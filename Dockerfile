@@ -27,4 +27,4 @@ VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 EXPOSE 5432
 
-CMD /var/lib/postgresql/run
+CMD ["/var/lib/postgresql/run"]

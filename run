@@ -24,4 +24,4 @@ if [ -e first_run ]; then
     rm first_run
 fi
 
-$SERVER
+exec $SERVER
