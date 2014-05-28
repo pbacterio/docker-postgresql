@@ -22,6 +22,7 @@ RUN echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/9.3/main/pg_hba.conf
 
 WORKDIR /var/lib/postgresql
 
+RUN ls -l //var/lib/postgresql
 RUN touch /var/lib/postgresql/first_run
 
 VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
