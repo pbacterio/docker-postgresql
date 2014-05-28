@@ -18,7 +18,6 @@ RUN pg_createcluster --locale en_US.utf8 9.3 main
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
 RUN echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/9.3/main/pg_hba.conf
 
-RUN ls -l /var/lib/postgresql
 RUN touch /var/lib/postgresql/first_run
 
 USER postgres
