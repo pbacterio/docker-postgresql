@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SERVER="/usr/lib/postgresql/9.3/bin/postgres -D /var/lib/postgresql/9.3/main -c config_file=/etc/postgresql/9.3/main/postgresql.conf"
+SINGLE_SERVER="/usr/lib/postgresql/9.3/bin/postgres --single -D /var/lib/postgresql/9.3/main -c config_file=/etc/postgresql/9.3/main/postgresql.conf"
+
+init_db () {
+    SCHEMA=${SCHEMA:-"docker"}
+    USER=${USER:-"docker"}
+    PASS=${PASS:-`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c10`}
+
+    $SINGLE_SERVER <<< "CREATE USER $USER WITH SUPERUSER;" > /dev/null
+    $SINGLE_SERVER <<< "ALTER USER $USER WITH PASSWORD '$PASS';" > /dev/null
+    $SINGLE_SERVER <<< "CREATE DATABASE $SCHEMA OWNER $USER;" > /dev/null
+
+    echo "# --------------------"
+    echo "# SCHEMA: $SCHEMA"
+    echo "# USER:   $USER"
+    echo "# PASS:   $PASS"
+    echo "# --------------------"
+}
+
+if [ -e first_run ]; then
+    init_db
+    rm first_run
+fi
+
+$SERVER
